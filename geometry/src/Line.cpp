@@ -40,15 +40,15 @@ bool Line::operator!=(const Line& point) const {
   return !(point == *this);
 }
 
-double Line::GetA() const {
+double Line::getA() const {
   return a;
 }
 
-double Line::GetB() const {
+double Line::getB() const {
   return b;
 }
 
-Point Line::Cross(const Line& line) const {
+Point Line::cross(const Line& line) const {
   double x = line.c * b - c * line.b;
   x /= (a * line.b - line.a * b);
   double y = line.a * c - line.c * a;

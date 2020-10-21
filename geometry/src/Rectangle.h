@@ -16,8 +16,8 @@ class Rectangle : public Polygon {
   explicit Rectangle(const Point& a, const Point& b, double aspectRatio);
   virtual ~Rectangle() = default;
 
-  Point Center();
-  std::pair<Line, Line> Diagonals();
+  Point center();
+  std::pair<Line, Line> diagonals();
 };
 
 #endif //INC_2_SRC_RECTANGLE_H_

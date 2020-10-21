@@ -22,17 +22,17 @@ class Ellipse : public Shape {
   virtual ~Ellipse() = default;
 
   std::pair<Point, Point> Focuses();
-  double Eccentricity();
+  double eccentricity();
 
-  virtual double Perimeter() override;
-  double Area() override;
+  virtual double perimeter() override;
+  double area() override;
   bool operator==(const Shape& another) const override;
   bool operator!=(const Shape& another) const override;
 
-  void Rotate(Point center, double angle) override;
-  void Reflex(Point center) override;
-  void Reflex(Line axis) override;
-  void Scale(Point center, double coefficient) override;
+  void rotate(Point center, double angle) override;
+  void reflex(Point center) override;
+  void reflex(Line axis) override;
+  void scale(Point center, double coefficient) override;
 };
 
 #endif //INC_2_SRC_ELLIPSE_H_

@@ -1,9 +1,8 @@
-#include <vector>
 #include <cmath>
 
 #include "Polygon.h"
 
-double Polygon::GetTrapezoidArea(const Point& a, const Point& b) {
+double Polygon::getTrapezoidArea(const Point& a, const Point& b) {
   double area = a.x + b.x;
   area *= (a.y - b.y);
   area /= 2;
@@ -20,22 +19,22 @@ size_t Polygon::verticesCount() {
   return vertices.size();
 }
 
-double Polygon::Perimeter() {
+double Polygon::perimeter() {
   double dist = 0;
   for (size_t i = 1; i < vertices.size(); ++i) {
-    dist += GetDistance(vertices[i - 1], vertices[i]);
+    dist += getDistance(vertices[i - 1], vertices[i]);
   }
-  dist += GetDistance(vertices[0], vertices[vertices.size() - 1]);
+  dist += getDistance(vertices[0], vertices[vertices.size() - 1]);
 
   return dist;
 }
 
-double Polygon::Area() {
+double Polygon::area() {
   double area = 0;
   for (size_t i = 1; i < vertices.size(); ++i) {
-    area += GetTrapezoidArea(vertices[i - 1], vertices[i]);
+    area += getTrapezoidArea(vertices[i - 1], vertices[i]);
   }
-  area += GetTrapezoidArea(vertices[vertices.size() - 1], vertices[0]);
+  area += getTrapezoidArea(vertices[vertices.size() - 1], vertices[0]);
 
   return fabs(area);
 }
@@ -78,31 +77,31 @@ bool Polygon::operator!=(const Shape& another) const {
   return !(another == *this);
 }
 
-void Polygon::Rotate(Point center, double angle) {
+void Polygon::rotate(Point center, double angle) {
   for (auto& vertex : vertices) {
-    vertex.Rotate(center, angle);
+    vertex.rotate(center, angle);
   }
 }
 
-void Polygon::Reflex(Point center) {
+void Polygon::reflex(Point center) {
   for (auto& vertex : vertices) {
-    vertex.Reflex(center);
+    vertex.reflex(center);
   }
 }
 
-void Polygon::Reflex(Line axis) {
+void Polygon::reflex(Line axis) {
   for (auto& vertex : vertices) {
-    vertex.Reflex(axis);
+    vertex.reflex(axis);
   }
 }
 
-void Polygon::Scale(Point center, double coefficient) {
+void Polygon::scale(Point center, double coefficient) {
   for (auto& vertex : vertices) {
-    vertex.Scale(center, coefficient);
+    vertex.scale(center, coefficient);
   }
 }
 
-Point Polygon::GetAverage(const Point& a, const Point& b) {
+Point Polygon::getAverage(const Point& a, const Point& b) {
   double middleX = (a.x + b.x) / 2;
   double middleY = (a.y + b.y) / 2;
   return Point(middleX, middleY);

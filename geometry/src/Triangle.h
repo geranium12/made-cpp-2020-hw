@@ -16,13 +16,13 @@ class Triangle : public Polygon {
   explicit Triangle(const Point& a, const Point& b, const Point& c);
   ~Triangle() = default;
 
-  Circle CircumscribedCircle();
-  Circle InscribedCircle();
+  Circle circumscribedCircle();
+  Circle inscribedCircle();
 
-  Point Centroid();
-  Point Orthocenter();
+  Point centroid();
+  Point orthocenter();
   Line EulerLine();
-  Circle NinePointsCircle();
+  Circle ninePointsCircle();
 };
 
 #endif //INC_2_SRC_TRIANGLE_H_

@@ -19,10 +19,10 @@ class Point {
   Point operator-() const;
   Point operator-(const Point& a) const;
 
-  void Rotate(const Point& center, double angle);
-  void Reflex(const Point& center);
-  void Reflex(const Line& axis);
-  void Scale(const Point& center, double coefficient);
+  void rotate(const Point& center, double angle);
+  void reflex(const Point& center);
+  void reflex(const Line& axis);
+  void scale(const Point& center, double coefficient);
 };
 
 #endif //INC_2_SRC_POINT_H_

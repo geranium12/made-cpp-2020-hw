@@ -20,10 +20,10 @@ class Line {
   bool operator==(const Line& line) const;
   bool operator!=(const Line& line) const;
 
-  double GetA() const;
-  double GetB() const;
+  double getA() const;
+  double getB() const;
 
-  Point Cross(const Line& line) const;
+  Point cross(const Line& line) const;
 };
 
 #endif //INC_2_SRC_LINE_H_

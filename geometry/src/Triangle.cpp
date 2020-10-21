@@ -4,7 +4,7 @@
 
 Triangle::Triangle(const Point& a, const Point& b, const Point& c) : Polygon({a, b, c}) {}
 
-Circle Triangle::CircumscribedCircle() {
+Circle Triangle::circumscribedCircle() {
   Point a = vertices[0];
   Point b = vertices[1] - a;
   Point c = vertices[2] - a;
@@ -14,29 +14,29 @@ Circle Triangle::CircumscribedCircle() {
   double distC = c.x * c.x + c.y * c.y;
   double centerX = (c.y * distB - b.y * distC) / d;
   double centerY = (b.x * distC - c.x * distB) / d;
-  double r = GetDistance(Point(centerX, centerY), Point(0, 0));
+  double r = getDistance(Point(centerX, centerY), Point(0, 0));
 
   return Circle(Point(centerX + a.x, centerY + a.y), r);
 }
 
-Circle Triangle::InscribedCircle() {
+Circle Triangle::inscribedCircle() {
   const Point& a = vertices[0];
   const Point& b = vertices[1];
   const Point& c = vertices[2];
-  double lengthA = GetDistance(b, c);
-  double lengthB = GetDistance(a, c);
-  double lengthC = GetDistance(a, b);
+  double lengthA = getDistance(b, c);
+  double lengthB = getDistance(a, c);
+  double lengthC = getDistance(a, b);
 
   double centerX = lengthA * a.x + lengthB * b.x + lengthC * c.x;
   centerX /= (lengthA + lengthB + lengthC);
   double centerY = lengthA * a.y + lengthB * b.y + lengthC * c.y;
   centerY /= (lengthA + lengthB + lengthC);
-  double r = 2 * Area() / Perimeter();
+  double r = 2 * area() / perimeter();
 
   return Circle(Point(centerX, centerY), r);
 }
 
-Point Triangle::Centroid() {
+Point Triangle::centroid() {
   const Point& a = vertices[0];
   const Point& b = vertices[1];
   const Point& c = vertices[2];
@@ -47,7 +47,7 @@ Point Triangle::Centroid() {
   return Point(centerX, centerY);
 }
 
-Point Triangle::Orthocenter() {
+Point Triangle::orthocenter() {
   const Point& a = vertices[0];
   const Point& b = vertices[1];
   const Point& c = vertices[2];
@@ -66,12 +66,12 @@ Point Triangle::Orthocenter() {
 }
 
 Line Triangle::EulerLine() {
-  return Line(Centroid(), Orthocenter());
+  return Line(centroid(), orthocenter());
 }
 
-Circle Triangle::NinePointsCircle() {
-  Point center(GetAverage(Orthocenter(), CircumscribedCircle().Center()));
-  Point middleSide = GetAverage(vertices[0], vertices[1]);
-  double r = GetDistance(center, middleSide);
+Circle Triangle::ninePointsCircle() {
+  Point center(getAverage(orthocenter(), circumscribedCircle().center()));
+  Point middleSide = getAverage(vertices[0], vertices[1]);
+  double r = getDistance(center, middleSide);
   return Circle(center, r);
 }

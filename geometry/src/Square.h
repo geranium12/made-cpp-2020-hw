@@ -14,8 +14,8 @@ class Square : public Rectangle {
   explicit Square(const Point& a, const Point& b);
   ~Square() override = default;
 
-  Circle CircumscribedCircle();
-  Circle InscribedCircle();
+  Circle circumscribedCircle();
+  Circle inscribedCircle();
 };
 
 #endif //INC_2_SRC_SQUARE_H_

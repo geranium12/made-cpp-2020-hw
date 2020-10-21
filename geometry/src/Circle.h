@@ -12,8 +12,8 @@ class Circle : public Ellipse {
   explicit Circle(const Point& center, double radius);
   ~Circle() override = default;
 
-  Point Center();
-  double Radius();
+  Point center();
+  double radius();
 };
 
 #endif //INC_2_SRC_CIRCLE_H_
