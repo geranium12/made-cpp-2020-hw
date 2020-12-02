@@ -2,67 +2,35 @@
 #define INC_4_SRC_COMPOSE_H_
 
 #include <type_traits>
+#include <functional>
 
-template<class F, typename ...Other>
-struct Composer {
- public:
-  using return_type = F;
+template<typename R, typename ...Args>
+std::function<R(Args...)> compose(const std::function<R(Args...)>& f) {
+    return f;
+}
 
- private:
-  F f;
-  Composer<Other...> other;
+template<typename R1, typename Arg1_R2, typename ...Arg2>
+std::function<R1(Arg2...)> compose(
+    const std::function<R1(Arg1_R2)>& f,
+    const std::function<Arg1_R2(Arg2...)>& g) {
+    std::function<R1(Arg2...)> result = [f, g](auto ...arg) {
+        return f(g(arg...));
+    };
 
- public:
-  Composer(F func, Other ...other) : f(func), other(other...) {
-      static_assert((std::is_same<typename Composer<Other...>::return_type::result_type,
-          typename F::argument_type>::value), "Incompatible types");
-  }
+    return result;
+}
 
-  template<class... Arg>
-  decltype(auto) operator()(const Arg&... arg) {
-      return f(other(arg...));
-  }
-};
+template<typename R1, typename Arg1_R2, typename Arg2, typename ...Args>
+std::function<R1(Arg2)> compose(
+    const std::function<R1(Arg1_R2)>& f,
+    const std::function<Arg1_R2(Arg2)>& g,
+    Args ...args) {
+    std::function<R1(Arg2)> result = [f, g](auto... arguments) {
+        return f(g(arguments...));
+    };
 
-template <class F, class G>
-struct Composer<F, G> {
- public:
-  using return_type = F;
-
- private:
-  F f;
-  G g;
-
- public:
-  Composer(F f, G g) : f(f), g(g) {}
-
-  template<class... Arg>
-  decltype(auto) operator()(const Arg&... arg) {
-      static_assert(std::is_same<typename G::result_type, typename F::argument_type>::value, "Incompatible types");
-      return f(g(arg...));
-  }
-};
-
-template <class F>
-struct Composer<F> {
- public:
-  using return_type = F;
-
- private:
-  F f;
-
- public:
-  Composer(F func) : f(func) {}
-
-  template<class... Arg>
-  decltype(auto) operator()(const Arg&... arg) {
-      return f(arg...);
-  }
-};
-
-template <class... F>
-auto compose(F... f) {
-    return Composer<F...>(f...);
+    return compose(result, args...);
 }
 
 #endif //INC_4_SRC_COMPOSE_H_
+
